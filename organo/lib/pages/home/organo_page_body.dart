@@ -5,18 +5,20 @@ import 'package:organo/widgets/big_text.dart';
 import 'package:organo/widgets/icon_and_text_widget.dart';
 import 'package:organo/widgets/small_text.dart';
 
+import '../../utlis/dimensions.dart';
+
 class OrganoPageBody extends StatefulWidget {
   const OrganoPageBody({Key? key}) : super(key: key);
 
   @override
-  OrganoPageBodyState createState() => OrganoPageBodyState();
+  State<OrganoPageBody> createState() => OrganoPageBodyState();
 }
 
 class OrganoPageBodyState extends State<OrganoPageBody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
-  double _height = 200;
+  double _height = Dimensions.pageViewContainer;
 
   @override
   void initState() {
@@ -39,7 +41,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
       children: [
         Container(
           //color: const Color.fromRGBO(255, 82, 82, 1),
-          height: 300,
+          height: Dimensions.pageView,
           child: PageView.builder(
               controller: pageController,
               itemCount: 5,
@@ -57,6 +59,109 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
                 borderRadius: BorderRadius.circular(5.0)),
           ),
         ),
+
+        //Popular text
+        SizedBox(height: Dimensions.height30),
+        Container(
+            margin: EdgeInsets.only(left: Dimensions.width30),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                BigText(text: "Popular "),
+                SizedBox(
+                  width: Dimensions.width10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 3),
+                  child: BigText(text: ".", color: Colors.black26),
+                ),
+                SizedBox(
+                  width: Dimensions.width10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 2),
+                  child: SmallText(
+                    text: "Best Sellers",
+                  ),
+                )
+              ],
+            )),
+        //list of food and images
+
+        ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                    left: Dimensions.width10,
+                    right: Dimensions.width10,
+                    bottom: Dimensions.height10),
+                child: Row(
+                  children: [
+                    //image section
+                    Container(
+                        width: Dimensions.listViewImgSize,
+                        height: Dimensions.listViewImgSize,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius20),
+                            color: Colors.white38,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image:
+                                    AssetImage("assets/image/veggies1.jpeg")))),
+                    //text container
+                    Expanded(
+                      child: Container(
+                        height: Dimensions.listViewTextContSize,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(Dimensions.radius20),
+                            bottomRight: Radius.circular(Dimensions.radius20),
+                          ),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: Dimensions.width10,
+                              right: Dimensions.width10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BigText(text: "Organic fruits and vegetables"),
+                              SizedBox(height: Dimensions.height10),
+                              SmallText(text: "Hand picked from local gardens"),
+                              SizedBox(height: Dimensions.height10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconAndTextWidget(
+                                      icon: Icons.circle_sharp,
+                                      text: "Normal",
+                                      iconColor: AppColors.iconColor1),
+                                  IconAndTextWidget(
+                                      icon: Icons.energy_savings_leaf,
+                                      text: "Organic",
+                                      iconColor: AppColors.mainColor),
+                                  IconAndTextWidget(
+                                      icon: Icons.check_box,
+                                      text: "approved",
+                                      iconColor: AppColors.iconColor2),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }),
       ],
     );
   }

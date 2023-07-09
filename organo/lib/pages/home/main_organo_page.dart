@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:organo/home/organo_page_body.dart';
+import 'package:organo/pages/home/organo_page_body.dart';
 import 'package:organo/pages/auth/sign_up_page.dart';
 import 'package:organo/utlis/colors.dart';
 import 'package:organo/widgets/big_text.dart';
@@ -51,7 +51,10 @@ class _MainOrganoPageState extends State<MainOrganoPage> {
               ),
             ),
           ),
-          OrganoPageBody(),
+          Expanded(
+              child: SingleChildScrollView(
+            child: OrganoPageBody(),
+          )),
         ],
       ),
       bottomNavigationBar: Container(
