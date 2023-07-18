@@ -1,9 +1,17 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:organo/controllers/popular_product_controller.dart';
+import 'package:organo/controllers/recommended_product_controller.dart';
+import 'package:organo/models/products_model.dart';
+import 'package:organo/pages/food/popular_food_detail.dart';
+import 'package:organo/pages/food/recommended_food_detail.dart';
+import 'package:organo/utlis/app_constants.dart';
 import 'package:organo/utlis/colors.dart';
 import 'package:organo/widgets/big_text.dart';
 import 'package:organo/widgets/icon_and_text_widget.dart';
 import 'package:organo/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 import '../../utlis/dimensions.dart';
 
@@ -39,26 +47,44 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          //color: const Color.fromRGBO(255, 82, 82, 1),
-          height: Dimensions.pageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (context, position) {
-                return _buildPageItem(position);
-              }),
-        ),
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currPageValue,
-          decorator: DotsDecorator(
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-          ),
-        ),
+        //slider section
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return popularProducts.isLoaded
+              ? Container(
+                  //color: const Color.fromRGBO(255, 82, 82, 1),
+                  height: Dimensions.pageView,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(() => PopularFoodDetail());
+                    },
+                    child: PageView.builder(
+                        controller: pageController,
+                        itemCount: popularProducts.popularProductList.length,
+                        itemBuilder: (context, position) {
+                          return _buildPageItem(position,
+                              popularProducts.popularProductList[position]);
+                        }),
+                  ),
+                )
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                );
+        }),
+        //dots
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return DotsIndicator(
+            dotsCount: popularProducts.popularProductList.length <= 0
+                ? 1
+                : popularProducts.popularProductList.length,
+            position: _currPageValue,
+            decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          );
+        }),
 
         //Popular text
         SizedBox(height: Dimensions.height30),
@@ -67,7 +93,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                BigText(text: "Popular "),
+                BigText(text: "Recommended"),
                 SizedBox(
                   width: Dimensions.width10,
                 ),
@@ -88,85 +114,112 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
             )),
         //list of food and images
 
-        ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.width10,
-                    right: Dimensions.width10,
-                    bottom: Dimensions.height10),
-                child: Row(
-                  children: [
-                    //image section
-                    Container(
-                        width: Dimensions.listViewImgSize,
-                        height: Dimensions.listViewImgSize,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radius20),
-                            color: Colors.white38,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    AssetImage("assets/image/veggies1.jpeg")))),
-                    //text container
-                    Expanded(
-                      child: Container(
-                        height: Dimensions.listViewTextContSize,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(Dimensions.radius20),
-                            bottomRight: Radius.circular(Dimensions.radius20),
-                          ),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
+        GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
+          return recommendedProduct.isLoaded
+              ? GestureDetector(
+                  onTap: () {
+                    Get.to(() => RecommenedFoodDetail());
+                  },
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount:
+                          recommendedProduct.recommendedProductList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.only(
                               left: Dimensions.width10,
-                              right: Dimensions.width10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                              right: Dimensions.width10,
+                              bottom: Dimensions.height10),
+                          child: Row(
                             children: [
-                              BigText(text: "Organic fruits and vegetables"),
-                              SizedBox(height: Dimensions.height10),
-                              SmallText(text: "Hand picked from local gardens"),
-                              SizedBox(height: Dimensions.height10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(
-                                      icon: Icons.circle_sharp,
-                                      text: "Normal",
-                                      iconColor: AppColors.iconColor1),
-                                  IconAndTextWidget(
-                                      icon: Icons.energy_savings_leaf,
-                                      text: "Organic",
-                                      iconColor: AppColors.mainColor),
-                                  IconAndTextWidget(
-                                      icon: Icons.check_box,
-                                      text: "approved",
-                                      iconColor: AppColors.iconColor2),
-                                ],
+                              //image section
+                              Container(
+                                  width: Dimensions.listViewImgSize,
+                                  height: Dimensions.listViewImgSize,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radius20),
+                                      color: Colors.white38,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(AppConstants
+                                                .BASE_URL +
+                                            AppConstants.UPLOAD_URL +
+                                            recommendedProduct
+                                                .recommendedProductList[index]
+                                                .img!),
+                                      ))),
+                              //text container
+                              Expanded(
+                                child: Container(
+                                  height: Dimensions.listViewTextContSize,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight:
+                                          Radius.circular(Dimensions.radius20),
+                                      bottomRight:
+                                          Radius.circular(Dimensions.radius20),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: Dimensions.width10,
+                                        right: Dimensions.width10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        BigText(
+                                            text:
+                                                "Organic fruits and vegetables"),
+                                        SizedBox(height: Dimensions.height10),
+                                        SmallText(
+                                            text:
+                                                "Hand picked from local gardens"),
+                                        SizedBox(height: Dimensions.height10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            IconAndTextWidget(
+                                                icon: Icons.circle_sharp,
+                                                text: "Normal",
+                                                iconColor:
+                                                    AppColors.iconColor1),
+                                            IconAndTextWidget(
+                                                icon: Icons.energy_savings_leaf,
+                                                text: "Organic",
+                                                iconColor: AppColors.mainColor),
+                                            IconAndTextWidget(
+                                                icon: Icons.check_box,
+                                                text: "approved",
+                                                iconColor:
+                                                    AppColors.iconColor2),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }),
+                        );
+                      }),
+                )
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                );
+        })
       ],
     );
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index, ProductModel popularProduct) {
     Matrix4 matrix = new Matrix4.identity();
     if (index == _currPageValue.floor()) {
       var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
@@ -204,7 +257,9 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
               color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/image/bamboobrush.jpg"),
+                image: NetworkImage(AppConstants.BASE_URL +
+                    AppConstants.UPLOAD_URL +
+                    popularProduct.img!),
               ),
             ),
           ),
@@ -229,7 +284,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(text: "Bamboo Brush"),
+                    BigText(text: popularProduct.name!),
                     SizedBox(height: 10),
                     Row(
                       children: [
