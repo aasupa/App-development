@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:organo/controllers/popular_product_controller.dart';
+import 'package:organo/utlis/app_constants.dart';
 
 import 'package:organo/widgets/app_column.dart';
 import 'package:organo/widgets/app_icon.dart';
@@ -14,10 +16,15 @@ import '../../widgets/small_text.dart';
 import '../home/main_organo_page.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  int pageId;
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    // print("page is id " + pageId.toString());
+    //print("product name is  " + product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -32,7 +39,9 @@ class PopularFoodDetail extends StatelessWidget {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage("assets/image/apples1.jpeg"))))),
+                          image: NetworkImage(AppConstants.BASE_URL +
+                              AppConstants.UPLOAD_URL +
+                              product.img!))))),
           //icon widget
           Positioned(
               top: Dimensions.height45,
@@ -46,7 +55,7 @@ class PopularFoodDetail extends StatelessWidget {
                       Get.to(() => MainOrganoPage());
                     },
                     child: AppIcon(
-                      icon: Icons.arrow_back_ios,
+                      icon: Icons.arrow_back_ios_rounded,
                     ),
                   ),
                   GestureDetector(
@@ -76,15 +85,14 @@ class PopularFoodDetail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppColumn(text: "Apples"),
+                    AppColumn(text: product.name!),
                     SizedBox(height: Dimensions.height20),
                     BigText(text: "Description"),
                     SizedBox(height: Dimensions.height20),
                     Expanded(
                         child: SingleChildScrollView(
                             child: ExpandableTextWidget(
-                                text:
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum ."))),
+                                text: product.description!))),
                   ],
                 ),
               ))
@@ -143,7 +151,7 @@ class PopularFoodDetail extends StatelessWidget {
                   left: Dimensions.width20,
                   right: Dimensions.width20),
               child: BigText(
-                text: "Rs30 | Add to Cart",
+                text: "Rs. ${product.price!} | Add to Cart",
                 color: Colors.white,
               ),
               decoration: BoxDecoration(

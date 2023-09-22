@@ -7,6 +7,7 @@ import 'package:organo/pages/food/recommended_food_detail.dart';
 import 'package:organo/pages/home/main_organo_page.dart';
 import 'package:get/get.dart';
 import 'package:organo/pages/home/organo_page_body.dart';
+import 'package:organo/routes/route_helper.dart';
 import 'helper/dependencies.dart' as dep;
 
 Future<void> main() async {
@@ -26,11 +27,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
       home: MainOrganoPage(),
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
     );
   }
 }

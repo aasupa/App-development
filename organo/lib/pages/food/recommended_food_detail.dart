@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:organo/controllers/recommended_product_controller.dart';
+import 'package:organo/routes/route_helper.dart';
+import 'package:organo/utlis/app_constants.dart';
 import 'package:organo/utlis/colors.dart';
 import 'package:organo/utlis/dimensions.dart';
 import 'package:organo/widgets/app_icon.dart';
@@ -6,20 +10,30 @@ import 'package:organo/widgets/big_text.dart';
 import 'package:organo/widgets/expandable_text_widget.dart';
 
 class RecommenedFoodDetail extends StatelessWidget {
-  const RecommenedFoodDetail({super.key});
+  final int pageId;
+  const RecommenedFoodDetail({Key? key, required this.pageId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 80,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: AppIcon(icon: Icons.clear),
+                ),
                 AppIcon(icon: Icons.shopping_cart_outlined)
               ],
             ),
@@ -27,8 +41,8 @@ class RecommenedFoodDetail extends StatelessWidget {
               preferredSize: Size.fromHeight(20),
               child: Container(
                 child: Center(
-                    child: BigText(
-                        size: Dimensions.font26, text: "Self-care product")),
+                    child:
+                        BigText(size: Dimensions.font26, text: product.name!)),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
@@ -42,8 +56,8 @@ class RecommenedFoodDetail extends StatelessWidget {
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-              "assets/image/food0.png",
+                background: Image.network(
+              AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             )),
@@ -52,9 +66,7 @@ class RecommenedFoodDetail extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: ExpandableTextWidget(
-                      text:
-                          "Organic skin care products have gained immense popularity in recent years, and for good reason. These products harness the power of nature to provide nourishment and rejuvenation to our skin. With a focus on using natural and sustainable ingredients, organic skin care products offer a gentle yet effective alternative to harsh chemical-based formulas. From soothing aloe vera to hydrating coconut oil and revitalizing green tea extracts, these products are packed with potent botanicals that work in harmony with our skin's natural processes. The absence of synthetic additives, parabens, and artificial fragrances ensures that our skin receives only the purest and most beneficial ingredients. Organic skin care products not only help to improve the overall health and appearance of our skin but also contribute to a greener and more sustainable planet. By supporting eco-friendly practices and promoting organic farming, these products are a step towards a healthier and more conscious lifestyle. So, whether it's a hydrating moisturizer, a clarifying face mask, or a gentle cleanser, incorporating organic skin care products into our daily routine can be a transformative experience for our skin and the environment."),
+                  child: ExpandableTextWidget(text: product.description!),
                   margin: EdgeInsets.only(
                       left: Dimensions.width20, right: Dimensions.width20),
                 )
@@ -82,7 +94,7 @@ class RecommenedFoodDetail extends StatelessWidget {
                     backgroundColor: AppColors.mainColor,
                     icon: Icons.remove),
                 BigText(
-                  text: "Rs.12.88 " + " X " + " 0 ",
+                  text: "Rs ${product.price!} X  +  0 ",
                   size: Dimensions.font26,
                 ),
                 AppIcon(
