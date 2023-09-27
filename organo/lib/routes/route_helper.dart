@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:organo/pages/auth/sign_in_page.dart';
 import 'package:organo/pages/food/popular_food_detail.dart';
 import 'package:organo/pages/food/recommended_food_detail.dart';
 import 'package:organo/pages/home/home_page.dart';
@@ -8,12 +9,21 @@ class RouteHelper {
   static const String initial = "/";
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
+  static const String signIn = "/signin";
+
   static String getInitial() => '$initial';
   static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
+  static String getSignInPage() => '$signIn';
   static String getRecommendedFood(int pageId) =>
       '$recommendedFood?pageId=$pageId';
   static List<GetPage> routes = [
     GetPage(name: initial, page: () => HomePage()),
+    GetPage(
+        name: signIn,
+        page: () {
+          return SignInPage();
+        },
+        transition: Transition.fade),
     GetPage(
         name: popularFood,
         page: () {

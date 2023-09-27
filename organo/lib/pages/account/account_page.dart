@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:organo/controllers/auth_controller.dart';
+import 'package:organo/routes/route_helper.dart';
 import 'package:organo/utlis/colors.dart';
 import 'package:organo/utlis/dimensions.dart';
 import 'package:organo/widgets/app_icon.dart';
 import 'package:organo/widgets/big_text.dart';
-
+import 'package:get/get.dart';
 import '../../widgets/account_widget.dart';
 
 class AccountPage extends StatelessWidget {
@@ -97,7 +99,27 @@ class AccountPage extends StatelessWidget {
                         iconSize: Dimensions.height10 * 5 / 2,
                         size: Dimensions.height10 * 5,
                       ),
-                      bigText: BigText(text: "Aasu"),
+                      bigText: BigText(text: "Messages"),
+                    ),
+                    SizedBox(height: Dimensions.height20),
+                    //logout
+                    GestureDetector(
+                      onTap: () {
+                        if (Get.find<AuthController>().userLoggedIn()) {
+                          Get.find<AuthController>().clearSharedData();
+                          Get.offNamed(RouteHelper.getInitial());
+                        }
+                      },
+                      child: AccountWidget(
+                        appIcon: AppIcon(
+                          icon: Icons.logout,
+                          backgroundColor: Colors.redAccent,
+                          iconColor: Colors.white,
+                          iconSize: Dimensions.height10 * 5 / 2,
+                          size: Dimensions.height10 * 5,
+                        ),
+                        bigText: BigText(text: "LogOut"),
+                      ),
                     ),
                     SizedBox(height: Dimensions.height20),
                   ],
