@@ -57,47 +57,6 @@ class _MainOrganoPageState extends State<MainOrganoPage> {
           )),
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.only(
-          left: 10,
-          right: 10,
-        ),
-        height: 60,
-
-        // ignore: prefer_const_constructors
-        decoration: BoxDecoration(color: AppColors.mainColor, boxShadow: []),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                color: Colors.white,
-                iconSize: 40,
-                icon: const Icon(Icons.home_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                color: Colors.white,
-                iconSize: 35,
-                icon: const Icon(Icons.category_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                color: Colors.white,
-                iconSize: 35,
-                icon: const Icon(Icons.shopping_cart_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                color: Colors.white,
-                iconSize: 35,
-                icon: const Icon(Icons.portrait_outlined),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()));
-                },
-              ),
-            ]),
-      ),
     );
   }
 }

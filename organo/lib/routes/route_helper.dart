@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:organo/pages/food/popular_food_detail.dart';
 import 'package:organo/pages/food/recommended_food_detail.dart';
+import 'package:organo/pages/home/home_page.dart';
 import 'package:organo/pages/home/main_organo_page.dart';
 
 class RouteHelper {
@@ -12,7 +13,7 @@ class RouteHelper {
   static String getRecommendedFood(int pageId) =>
       '$recommendedFood?pageId=$pageId';
   static List<GetPage> routes = [
-    GetPage(name: initial, page: () => MainOrganoPage()),
+    GetPage(name: initial, page: () => HomePage()),
     GetPage(
         name: popularFood,
         page: () {

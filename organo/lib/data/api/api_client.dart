@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organo/utlis/app_constants.dart';
 
@@ -14,6 +15,14 @@ class ApiClient extends GetConnect implements GetxService {
       'Authorization': 'Bearer $token',
     };
   }
+
+  void updateHeader(String token) {
+    _mainHeaders = {
+      'Content-type': 'application/json: charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    };
+  }
+
   Future<Response> getData(
     String uri,
   ) async {
@@ -21,6 +30,18 @@ class ApiClient extends GetConnect implements GetxService {
       Response response = await get(uri);
       return response;
     } catch (e) {
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  Future<Response> postData(String uri, dynamic body) async {
+    print(body.toString());
+    try {
+      Response response = await post(uri, body, headers: _mainHeaders);
+      print(response.toString());
+      return response;
+    } catch (e) {
+      print(e.toString());
       return Response(statusCode: 1, statusText: e.toString());
     }
   }

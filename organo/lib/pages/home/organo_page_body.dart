@@ -25,7 +25,7 @@ class OrganoPageBody extends StatefulWidget {
 
 class OrganoPageBodyState extends State<OrganoPageBody> {
   PageController pageController = PageController(viewportFraction: 0.85);
-  var _currPageValue = 0.0;
+  var _currPageValue = 0;
   double _scaleFactor = 0.8;
   double _height = Dimensions.pageViewContainer;
 
@@ -34,7 +34,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
     super.initState();
     pageController.addListener(() {
       setState(() {
-        _currPageValue = pageController.page!;
+        _currPageValue = pageController.page! as int;
       });
     });
   }
@@ -42,6 +42,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
   @override
   void dispose() {
     pageController.dispose();
+    super.dispose();
   }
 
   @override
