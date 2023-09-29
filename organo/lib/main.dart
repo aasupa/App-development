@@ -7,6 +7,7 @@ import 'package:organo/pages/food/recommended_food_detail.dart';
 import 'package:organo/pages/home/main_organo_page.dart';
 import 'package:get/get.dart';
 import 'package:organo/pages/home/organo_page_body.dart';
+import 'package:organo/pages/splash/splash_page.dart';
 import 'package:organo/routes/route_helper.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -22,14 +23,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendedProductController>().getRecommendedProductList();
-    return GetMaterialApp(
+    
+    return GetBuilder<PopularProductController>(builder: (_){
+      return GetBuilder<RecommendedProductController>(builder: (_){
+        return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      //home: SplashScreen(),
       // home: MainOrganoPage(),
-      initialRoute: RouteHelper.getInitial(),
+      initialRoute: RouteHelper.getSplashPage(),
       getPages: RouteHelper.routes,
     );
+
+      });
+
+    });
   }
 }
