@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List pages = [
     MainOrganoPage(),
-    Container(child: Center(child: Text("History page"))),
+    SignUpPage(),
     Container(child: Center(child: Text("Cart History"))),
     AccountPage(),
   ];

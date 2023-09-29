@@ -7,6 +7,7 @@ import 'package:organo/base/show_custom_snackbar.dart';
 import 'package:organo/controllers/auth_controller.dart';
 import 'package:organo/models/signup_body_model.dart';
 import 'package:organo/pages/auth/sign_in_page.dart';
+import 'package:organo/routes/route_helper.dart';
 import 'package:organo/widgets/app_text_field.dart';
 import 'package:organo/widgets/big_text.dart';
 
@@ -52,6 +53,7 @@ class SignUpPage extends StatelessWidget {
         authController.registration(signUpBody).then((status) {
           if (status.isSuccess) {
             print("Success registration");
+            Get.offNamed(RouteHelper.initial);
           } else {
             showCustomSnackBar(status.message);
           }
