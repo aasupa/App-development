@@ -4,19 +4,24 @@ import 'package:organo/pages/food/popular_food_detail.dart';
 import 'package:organo/pages/food/recommended_food_detail.dart';
 import 'package:organo/pages/home/home_page.dart';
 import 'package:organo/pages/home/main_organo_page.dart';
+import 'package:organo/pages/splash/splash_page.dart';
 
 class RouteHelper {
+  static const String splashPage= "/splash-page";
   static const String initial = "/";
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
   static const String signIn = "/signin";
 
+
+  static String getSplashPage()=> '$splashPage';
   static String getInitial() => '$initial';
   static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
   static String getSignInPage() => '$signIn';
   static String getRecommendedFood(int pageId) =>
       '$recommendedFood?pageId=$pageId';
   static List<GetPage> routes = [
+    GetPage(name: splashPage, page: ()=>SplashScreen()),
     GetPage(name: initial, page: () => HomePage()),
     GetPage(
         name: signIn,
