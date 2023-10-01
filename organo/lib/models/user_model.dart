@@ -1,23 +1,23 @@
 class UserModel {
   int id;
-  String name;
+  String f_name;
   String email;
   String phone;
-  int orderCount;
+  int? order_Count;
 
   UserModel({
     required this.id,
-    required this.name,
+    required this.f_name,
     required this.email,
     required this.phone,
-    required this.orderCount,
+    required this.order_Count,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
         id: json['id'],
-        name: json['f_name'],
+        f_name: json['f_name'],
         email: json['email'],
         phone: json['phone'],
-        orderCount: json['order_Count']);
+        order_Count: json['order_Count']);
   }
 }

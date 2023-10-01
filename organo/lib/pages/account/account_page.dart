@@ -30,9 +30,9 @@ class AccountPage extends StatelessWidget {
               ),
             )),
         body: GetBuilder<UserController>(
-          builder: (UserController) {
+          builder: (userController) {
             return _userLoggedIn
-                ? (UserController.isloading
+                ? (userController.isloading
                     ? Container(
                         width: double.maxFinite,
                         margin: EdgeInsets.only(top: Dimensions.height20),
@@ -63,7 +63,8 @@ class AccountPage extends StatelessWidget {
                                         size: Dimensions.height10 * 5,
                                       ),
                                       bigText: BigText(
-                                          text: UserController.userModel.name),
+                                          text:
+                                              userController.userModel.f_name),
                                     ),
                                     SizedBox(height: Dimensions.height20),
                                     //phone
@@ -76,7 +77,7 @@ class AccountPage extends StatelessWidget {
                                         size: Dimensions.height10 * 5,
                                       ),
                                       bigText: BigText(
-                                          text: UserController.userModel.phone),
+                                          text: userController.userModel.phone),
                                     ),
                                     SizedBox(height: Dimensions.height20),
                                     //email
@@ -89,7 +90,7 @@ class AccountPage extends StatelessWidget {
                                         size: Dimensions.height10 * 5,
                                       ),
                                       bigText: BigText(
-                                          text: UserController.userModel.email),
+                                          text: userController.userModel.email),
                                     ),
                                     SizedBox(height: Dimensions.height20),
                                     //address
@@ -125,7 +126,7 @@ class AccountPage extends StatelessWidget {
                                           Get.find<AuthController>()
                                               .clearSharedData();
                                           Get.offNamed(
-                                              RouteHelper.getInitial());
+                                              RouteHelper.getSignInPage());
                                         }
                                       },
                                       child: AccountWidget(

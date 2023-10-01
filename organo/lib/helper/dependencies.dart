@@ -16,6 +16,7 @@ import '../data/api/repository/user_repo.dart';
 
 Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
+
   Get.lazyPut(() => sharedPreferences);
   //api client
   Get.lazyPut(() => ApiClient(
