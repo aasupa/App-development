@@ -5,6 +5,7 @@ import 'package:organo/pages/auth/sign_up_page.dart';
 import 'package:organo/pages/food/popular_food_detail.dart';
 import 'package:organo/utlis/colors.dart';
 
+import '../cart/cart_history.dart';
 import 'main_organo_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,8 +19,10 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List pages = [
     MainOrganoPage(),
-    SignUpPage(),
-    Container(child: Center(child: Text("Cart History"))),
+    Container(
+      child: Text("History_page"),
+    ),
+    CartHistory(),
     AccountPage(),
   ];
 

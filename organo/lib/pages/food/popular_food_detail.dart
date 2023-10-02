@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organo/controllers/popular_product_controller.dart';
 import 'package:organo/pages/cart/cart_page.dart';
+import 'package:organo/routes/route_helper.dart';
 import 'package:organo/utlis/app_constants.dart';
 
 import 'package:organo/widgets/app_column.dart';
@@ -17,7 +18,9 @@ import '../home/main_organo_page.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   int pageId;
-  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
+  final String page;
+  PopularFoodDetail({Key? key, required this.pageId, required this.page})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,11 @@ class PopularFoodDetail extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Get.to(() => MainOrganoPage());
+                        if (page == "cartpage") {
+                          Get.toNamed(RouteHelper.getCartPage());
+                        } else {
+                          Get.toNamed(RouteHelper.getInitial());
+                        }
                       },
                       child: AppIcon(
                         icon: Icons.arrow_back_ios_rounded,

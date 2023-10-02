@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organo/base/custom_loader.dart';
 import 'package:organo/controllers/auth_controller.dart';
+import 'package:organo/controllers/cart_controller.dart';
 import 'package:organo/controllers/user_controller.dart';
 import 'package:organo/routes/route_helper.dart';
 import 'package:organo/utlis/colors.dart';
@@ -125,8 +126,13 @@ class AccountPage extends StatelessWidget {
                                             .userLoggedIn()) {
                                           Get.find<AuthController>()
                                               .clearSharedData();
+                                          Get.find<CartController>().clear();
+                                          Get.find<CartController>()
+                                              .clearCartHistory();
                                           Get.offNamed(
                                               RouteHelper.getSignInPage());
+                                        } else {
+                                          print("you logged out");
                                         }
                                       },
                                       child: AccountWidget(
