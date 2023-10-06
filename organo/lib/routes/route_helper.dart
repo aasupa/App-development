@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:organo/models/order_model.dart';
 import 'package:organo/pages/auth/sign_in_page.dart';
 import 'package:organo/pages/food/popular_food_detail.dart';
 import 'package:organo/pages/food/recommended_food_detail.dart';
 import 'package:organo/pages/home/home_page.dart';
 import 'package:organo/pages/home/main_organo_page.dart';
+import 'package:organo/pages/payment/payment_page.dart';
 import 'package:organo/pages/splash/splash_page.dart';
 import 'package:organo/pages/cart/cart_page.dart';
 
@@ -15,6 +17,8 @@ class RouteHelper {
   static const String cartPage = "/cart-page";
   static const String signIn = "/signin";
 
+  static const String payment = '/payemnt';
+
   static String getSplashPage() => '$splashPage';
   static String getInitial() => '$initial';
   static String getPopularFood(int pageId, String page) =>
@@ -23,6 +27,8 @@ class RouteHelper {
   static String getRecommendedFood(int pageId, String page) =>
       '$recommendedFood?pageId=$pageId&page=$page';
   static String getCartPage() => '$cartPage';
+  static String getPaymentPage(String id, int userId) =>
+      '$payment?id=$id&userID=&userID';
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashScreen()),
@@ -54,6 +60,7 @@ class RouteHelper {
         page: () {
           return CartPage();
         },
-        transition: Transition.circularReveal)
+        transition: Transition.circularReveal),
+    //
   ];
 }
