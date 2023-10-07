@@ -30,7 +30,7 @@ class CartPage extends StatelessWidget {
         enabledDebugging: true,
         builder: (context, navKey) {
           return MaterialApp(
-            title: 'Khalti Demo',
+            title: 'Khalti Payment',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
