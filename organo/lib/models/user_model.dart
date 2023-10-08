@@ -3,6 +3,7 @@ class UserModel {
   String f_name;
   String email;
   String phone;
+  String address;
   int? order_Count;
 
   UserModel({
@@ -10,6 +11,7 @@ class UserModel {
     required this.f_name,
     required this.email,
     required this.phone,
+    required this.address,
     required this.order_Count,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +20,7 @@ class UserModel {
         f_name: json['f_name'],
         email: json['email'],
         phone: json['phone'],
+        address: json['address'],
         order_Count: json['order_Count']);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:organo/controllers/auth_controller.dart';
+import 'package:organo/pages/order/view_order.dart';
 import 'package:organo/utlis/colors.dart';
 import 'package:organo/utlis/dimensions.dart';
 
@@ -44,13 +45,14 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               labelColor: Colors.green,
               unselectedLabelColor: AppColors.yellowColor,
               controller: _tabController,
-              tabs: [Tab(text: "current"), Tab(text: "history")],
+              tabs: const [Tab(text: "current"), Tab(text: "history")],
             ),
           ),
           Expanded(
-            child: TabBarView(
-                controller: _tabController,
-                children: [Text("order1"), Text("order2")]),
+            child: TabBarView(controller: _tabController, children: const [
+              ViewOrder(isCurrent: true),
+              ViewOrder(isCurrent: false)
+            ]),
           )
         ],
       ),

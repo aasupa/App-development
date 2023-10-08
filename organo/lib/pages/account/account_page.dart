@@ -103,22 +103,23 @@ class AccountPage extends StatelessWidget {
                                         iconSize: Dimensions.height10 * 5 / 2,
                                         size: Dimensions.height10 * 5,
                                       ),
-                                      bigText:
-                                          BigText(text: "enter your address"),
+                                      bigText: BigText(
+                                          text:
+                                              userController.userModel.address),
                                     ),
                                     SizedBox(height: Dimensions.height20),
                                     //message
-                                    AccountWidget(
-                                      appIcon: AppIcon(
-                                        icon: Icons.message_outlined,
-                                        backgroundColor: Colors.redAccent,
-                                        iconColor: Colors.white,
-                                        iconSize: Dimensions.height10 * 5 / 2,
-                                        size: Dimensions.height10 * 5,
-                                      ),
-                                      bigText: BigText(text: "Messages"),
-                                    ),
-                                    SizedBox(height: Dimensions.height20),
+                                    // AccountWidget(
+                                    //   appIcon: AppIcon(
+                                    //     icon: Icons.message_outlined,
+                                    //     backgroundColor: Colors.redAccent,
+                                    //     iconColor: Colors.white,
+                                    //     iconSize: Dimensions.height10 * 5 / 2,
+                                    //     size: Dimensions.height10 * 5,
+                                    //   ),
+                                    //   bigText: BigText(text: "Messages"),
+                                    // ),
+                                    // SizedBox(height: Dimensions.height20),
                                     //logout
                                     GestureDetector(
                                       onTap: () {
