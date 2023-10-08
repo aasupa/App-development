@@ -22,6 +22,7 @@ class SignUpPage extends StatelessWidget {
     var passwordController = TextEditingController();
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
+    var addressController = TextEditingController();
     var signUpImages = [
       "t.png",
       "f.png",
@@ -32,6 +33,7 @@ class SignUpPage extends StatelessWidget {
       String phone = phoneController.text.trim();
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
+      String address = passwordController.text.trim();
 
       if (name.isEmpty) {
         showCustomSnackBar("Type in your name", title: "Name");
@@ -47,9 +49,15 @@ class SignUpPage extends StatelessWidget {
       } else if (password.length < 6) {
         showCustomSnackBar("Password can not be less than six characters",
             title: "Password");
+      } else if (address.isEmpty) {
+        showCustomSnackBar("Type in your address!", title: "Address");
       } else {
         SignUpBody signUpBody = SignUpBody(
-            name: name, phone: phone, email: email, password: password);
+            name: name,
+            phone: phone,
+            email: email,
+            password: password,
+            address: address);
         authController.registration(signUpBody).then((status) {
           if (status.isSuccess) {
             print("Success registration");
@@ -115,6 +123,13 @@ class SignUpPage extends StatelessWidget {
                         icon: Icons.phone),
                     SizedBox(
                       height: 5,
+                    ),
+                    AppTextField(
+                        textController: addressController,
+                        hintText: "Address",
+                        icon: Icons.place),
+                    SizedBox(
+                      height: 10,
                     ),
                     //signup button
                     GestureDetector(
