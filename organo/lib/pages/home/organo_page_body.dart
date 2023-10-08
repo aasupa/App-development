@@ -91,7 +91,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                BigText(text: "Recommended"),
+                BigText(text: "Fruits and veggies"),
                 SizedBox(
                   width: Dimensions.width10,
                 ),
@@ -297,7 +297,7 @@ class OrganoPageBodyState extends State<OrganoPageBody> {
                         SizedBox(width: 10),
                         SmallText(text: "4.5"),
                         SizedBox(width: 10),
-                        SmallText(text: "1287"),
+                        SmallText(text: ""),
                         SizedBox(width: 10),
                         SmallText(text: "comments")
                       ],

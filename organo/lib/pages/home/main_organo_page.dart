@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:organo/pages/home/organo_page_body.dart';
 import 'package:organo/pages/auth/sign_up_page.dart';
 import 'package:organo/utlis/colors.dart';
+import 'package:organo/utlis/dimensions.dart';
 import 'package:organo/widgets/big_text.dart';
 import 'package:organo/widgets/small_text.dart';
 
@@ -40,8 +41,12 @@ class _MainOrganoPageState extends State<MainOrganoPage> {
                         BigText(text: "ORGANO", color: AppColors.mainColor),
                         Row(
                           children: [
-                            SmallText(text: "Pokhara", color: Colors.black54),
-                            Icon(Icons.arrow_drop_down_rounded)
+                            BigText(
+                              text: "Grains and Oils",
+                              color: Colors.black,
+                              size: Dimensions.font16,
+                            ),
+                            Icon(Icons.arrow_downward)
                           ],
                         )
                       ],

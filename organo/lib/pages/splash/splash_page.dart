@@ -16,33 +16,28 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
-
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
-  
-  Future<void> _loadResource()async{
+
+  Future<void> _loadResource() async {
     await Get.find<PopularProductController>().getPopularProductList();
     await Get.find<RecommendedProductController>().getRecommendedProductList();
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _loadResource();
 
-    controller = AnimationController(
-      vsync: this, 
-      duration: const Duration(seconds: 2))..forward();
-      
-    animation = CurvedAnimation(
-      parent: controller, 
-      curve: Curves.linear);
-    Timer(
-      const Duration(seconds: 3),
-      ()=>Get.offNamed(RouteHelper.getInitial())
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..forward();
 
-      );
+    animation = CurvedAnimation(parent: controller, curve: Curves.linear);
+    Timer(const Duration(seconds: 3),
+        () => Get.offNamed(RouteHelper.getInitial()));
   }
 
   @override
@@ -52,13 +47,19 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-            ScaleTransition(scale: animation,
-            child: Center(child: Image.asset("assets/image/logo part 1.png",
-            width: Dimensions.splashImg,))),
-            Center(child: Image.asset("assets/image/logo part 2.png",
-             width:Dimensions.splashImg,)),
-
-      ],
+          ScaleTransition(
+              scale: animation,
+              child: Center(
+                  child: Image.asset(
+                "assets/image/organo.png",
+                width: Dimensions.splashImg,
+              ))),
+          Center(
+              child: Image.asset(
+            "assets/image/2.png",
+            width: Dimensions.splashImg,
+          )),
+        ],
       ),
     );
   }
