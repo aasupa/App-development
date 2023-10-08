@@ -4,7 +4,7 @@ class UserModel {
   String email;
   String phone;
   String address;
-  int? order_Count;
+  // String order_Count;
 
   UserModel({
     required this.id,
@@ -12,15 +12,16 @@ class UserModel {
     required this.email,
     required this.phone,
     required this.address,
-    required this.order_Count,
+    //required this.order_Count,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-        id: json['id'],
-        f_name: json['f_name'],
-        email: json['email'],
-        phone: json['phone'],
-        address: json['address'],
-        order_Count: json['order_Count']);
+      id: json['id'] ?? '',
+      f_name: json['f_name'] ?? '',
+      email: json['email'] ?? '',
+      phone: json['phone'] ?? '',
+      address: json['address'] ?? '',
+      //order_Count: json['order_Count']
+    );
   }
 }

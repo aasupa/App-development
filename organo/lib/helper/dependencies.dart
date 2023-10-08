@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:organo/controllers/auth_controller.dart';
 import 'package:organo/controllers/cart_controller.dart';
+import 'package:organo/controllers/order_controller.dart';
 import 'package:organo/controllers/popular_product_controller.dart';
 import 'package:organo/controllers/recommended_product_controller.dart';
 import 'package:organo/controllers/user_controller.dart';
@@ -12,6 +13,7 @@ import 'package:organo/data/api/repository/recommended_product_repo.dart';
 import 'package:organo/utlis/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/api/repository/order_repo.dart';
 import '../data/api/repository/user_repo.dart';
 
 Future<void> init(SharedPreferences sharedPreferences) async {
@@ -26,6 +28,8 @@ Future<void> init(SharedPreferences sharedPreferences) async {
   Get.lazyPut(() => UserRepo(
         apiClient: Get.find(),
       ));
+  Get.lazyPut(() => OrderRepo(apiClient: Get.find()));
+  Get.lazyPut(() => OrderController(orderRepo: Get.find()));
   //repos
 
   Get.lazyPut(() => PopularProductRepo(apiClient: Get.find()));

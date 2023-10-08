@@ -15,15 +15,15 @@ import 'package:organo/widgets/big_text.dart';
 import 'package:organo/widgets/small_text.dart';
 import 'package:organo/models/user_model.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+import 'package:organo/helper/dependencies.dart';
 import '../../controllers/order_controller.dart';
 import '../../routes/route_helper.dart';
 import '../../utlis/colors.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home/main_organo_page.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
-// Replace with your actual import path
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -49,6 +49,8 @@ class CartPages extends StatefulWidget {
 class _CartPagesState extends State<CartPages> {
   String txnId = "";
   String txnAmount = "";
+
+  // paxi add gareko
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -382,7 +384,7 @@ class _CartPagesState extends State<CartPages> {
     );
   }
 
-  OrderController orderController = OrderController();
+  OrderController orderController = OrderController(orderRepo: Get.find());
   payWithKhaltiInApp(total) {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
