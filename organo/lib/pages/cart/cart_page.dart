@@ -21,6 +21,33 @@ import '../home/main_organo_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return KhaltiScope(
+        publicKey: "test_public_key_d5d9f63743584dc38753056b0cc737d5",
+        enabledDebugging: true,
+        builder: (context, navKey) {
+          return MaterialApp(
+            title: 'Khalti Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: const CartPages(),
+            navigatorKey: navKey,
+            localizationsDelegates: const [
+              KhaltiLocalizations.delegate,
+              // AppLocalizations.delegate,
+              //       GlobalMaterialLocalizations.delegate,
+              //       GlobalCupertinoLocalizations.delegate,
+              //       GlobalWidgetsLocalizations.delegate,
+            ],
+          );
+        });
+  }
+}
+
+class CartPages extends StatefulWidget {
+  const CartPages({Key? key}) : super(key: key);
 
   @override
   _CartPageState createState() => _CartPageState();

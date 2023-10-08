@@ -3,6 +3,7 @@ import 'package:organo/pages/account/account_page.dart';
 import 'package:organo/pages/auth/sign_in_page.dart';
 import 'package:organo/pages/auth/sign_up_page.dart';
 import 'package:organo/pages/food/popular_food_detail.dart';
+import 'package:organo/pages/order/order_page.dart';
 import 'package:organo/utlis/colors.dart';
 
 import '../cart/cart_history.dart';
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List pages = [
     MainOrganoPage(),
-    Container(
-      child: Text("History_page"),
-    ),
+    OrderPage(),
     CartHistory(),
     AccountPage(),
   ];
