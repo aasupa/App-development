@@ -4,7 +4,7 @@ class OrderModel {
   late int? id;
   late int userId;
   String? txnId;
-  double? txnAmount;
+  String? txnAmount;
   String? orderStatus;
   String? paymentStatus;
   String? createdAt;

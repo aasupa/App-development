@@ -340,7 +340,8 @@ class _CartPagesState extends State<CartPages> {
                       GestureDetector(
                         onTap: () {
                           if (Get.find<AuthController>().userLoggedIn()) {
-                            payWithKhaltiInApp();
+                            payWithKhaltiInApp(
+                                cartController.totalAmount.toString());
                             //   cartController.addToHistory();
                             //   Get.offNamed(
                             //     RouteHelper.getPaymentPage(
@@ -380,10 +381,10 @@ class _CartPagesState extends State<CartPages> {
   }
 
   OrderController orderController = OrderController();
-  payWithKhaltiInApp() {
+  payWithKhaltiInApp(total) {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: 1000, //in paisa
+        amount: (double.parse(total)).toInt() * 100, //in paisa
         productIdentity: 'Product Id',
         productName: 'Product Name',
         // mobileReadOnly: false,
