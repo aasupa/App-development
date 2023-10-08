@@ -5,6 +5,8 @@ import 'package:organo/pages/order/view_order.dart';
 import 'package:organo/utlis/colors.dart';
 import 'package:organo/utlis/dimensions.dart';
 
+import '../../controllers/order_controller.dart';
+
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
 
@@ -20,12 +22,19 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _isLoggedIn = Get.find<AuthController>().userLoggedIn();
-    _tabController = _isLoggedIn
-        ? TabController(length: 2, vsync: this)
-        : TabController(
-            length: 2,
-            vsync: this); // Initialize with length 0 if not logged in
-    //Get.find<OrderController>().getOrderList();
+    if (_isLoggedIn) {
+      _tabController = TabController(length: 2, vsync: this);
+      Get.find<OrderController>().getOrderList();
+    }
+    // _tabController == _isLoggedIn
+    //     ? TabController(length: 2, vsync: this)
+    //     : TabController(R
+    //         length: 2,
+    //         vsync: this); // Initialize with length 0 if not logged in
+
+    // if (_isLoggedIn) {
+    //   Get.find<OrderController>().getOrderList();
+    // }
   }
 
   @override
