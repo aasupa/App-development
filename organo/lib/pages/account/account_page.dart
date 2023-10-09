@@ -134,6 +134,8 @@ class AccountPage extends StatelessWidget {
                                               RouteHelper.getInitial());
                                         } else {
                                           print("you logged out");
+                                          Get.offNamed(
+                                              RouteHelper.getInitial());
                                         }
                                       },
                                       child: AccountWidget(

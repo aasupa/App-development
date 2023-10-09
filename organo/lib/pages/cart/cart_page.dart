@@ -190,7 +190,7 @@ class _CartPagesState extends State<CartPages> {
                                                       .getItems[index].name!,
                                                   color: Colors.black54,
                                                 ),
-                                                SmallText(text: "Spicy"),
+                                                SmallText(text: "Organic"),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -346,7 +346,7 @@ class _CartPagesState extends State<CartPages> {
                           if (Get.find<AuthController>().userLoggedIn()) {
                             payWithKhaltiInApp(
                                 cartController.totalAmount.toString());
-                            //   cartController.addToHistory();
+                            cartController.addToHistory();
                             //   Get.offNamed(
                             //     RouteHelper.getPaymentPage(
                             //       "100127",
@@ -425,6 +425,7 @@ class _CartPagesState extends State<CartPages> {
     //     );
     //   },
     // );
+    final CartController _cartController = Get.find<CartController>();
     setState(() {
       txnId = success.idx;
       txnAmount = success.amount.toString();
@@ -433,7 +434,7 @@ class _CartPagesState extends State<CartPages> {
     print(txnAmount);
     orderController.placeOrder(
         context: context, userId: 1, txnId: txnId, txnAmount: txnAmount);
-
+    _cartController.clear();
     Get.toNamed(RouteHelper.getInitial());
   }
 

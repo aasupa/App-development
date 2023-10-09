@@ -24,7 +24,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
     _isLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_isLoggedIn) {
       _tabController = TabController(length: 2, vsync: this);
-      Get.find<OrderController>().getOrderList();
+
+      // Get.find<OrderController>().getOrderList();
     }
     // _tabController == _isLoggedIn
     //     ? TabController(length: 2, vsync: this)
@@ -59,8 +60,12 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
           ),
           Expanded(
             child: TabBarView(controller: _tabController, children: const [
-              ViewOrder(isCurrent: true),
-              ViewOrder(isCurrent: false)
+              Text("Order ID: 1110,"
+                  "Order amount: 28,"
+                  "Payment Status: Paid, Order Status: Pending "),
+              // Text("Order2"),
+              // ViewOrder(isCurrent: true),
+              // ViewOrder(isCurrent: false)
             ]),
           )
         ],
